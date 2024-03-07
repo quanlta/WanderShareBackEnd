@@ -1,15 +1,18 @@
 package com.admin.admin.config;
 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
@@ -17,27 +20,30 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        http.csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests()
-                .requestMatchers("/**").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .requestMatchers("/api/v1/user/**").permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/address/**").permitAll()
 //                .requestMatchers("/api/v1/comment/**").permitAll()
-//                .requestMatchers("/api/v1/timeshare/**").permitAll()
+//                .requestMatchers("/api/v1/product/**").permitAll()
 //                .requestMatchers("/api/v1/order/**").permitAll()
-                .requestMatchers("/api/v1/payment/**").permitAll()
 //                .requestMatchers("/api/v1/dashboard/**").permitAll()
                 .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                .requestMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
-                .anyRequest().authenticated()
+                .requestMatchers("/user/**").hasAnyAuthority("ADMIN","USER")
                 .and()
-                .csrf(csrf -> csrf.disable())
+                .csrf().disable()
                 .cors(Customizer.withDefaults())
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }

@@ -22,6 +22,7 @@ public class Timeshare {
     private Long category_id;
     private String name;
     private String description;
+    private long amount;
     private float price;
     private String timeshare_image;
     private Date startDate;

@@ -33,7 +33,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private final UserRepository userRepository;
-    @Value("${secret.key}")
+    @Value("${secret.key")
     private String secretkey;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

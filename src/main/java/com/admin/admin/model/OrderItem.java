@@ -19,6 +19,7 @@ public class OrderItem {
     private Long id;
     private String orderdetailid;
     private Long timeshare_id;
+    private int quantity;
     private float price;
 
     public OrderItem(String order_detail_id, Long timeshare_id, int value, float price, String orderType) {

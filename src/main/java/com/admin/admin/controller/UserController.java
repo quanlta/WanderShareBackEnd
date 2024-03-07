@@ -24,7 +24,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserCusRepo userCusRepo;
-    @Value("${secret.key}")
+    @Value("${secret.key")
     private String secretkey;
     @GetMapping("/admin/getAll")
     public List<UsersRequest> getAll(){

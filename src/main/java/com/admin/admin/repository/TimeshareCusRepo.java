@@ -25,6 +25,7 @@ public class TimeshareCusRepo {
         query.addScalar("category_id", StandardBasicTypes.LONG);
         query.addScalar("name", StandardBasicTypes.STRING);
         query.addScalar("description", StandardBasicTypes.STRING);
+        query.addScalar("amount", StandardBasicTypes.LONG);
         query.addScalar("price", StandardBasicTypes.FLOAT);
         query.addScalar("timeshare_image", StandardBasicTypes.STRING);
         query.addScalar("startDate", StandardBasicTypes.DATE);
@@ -44,6 +45,7 @@ public class TimeshareCusRepo {
         query.addScalar("category_id", StandardBasicTypes.LONG);
         query.addScalar("name", StandardBasicTypes.STRING);
         query.addScalar("description", StandardBasicTypes.STRING);
+        query.addScalar("amount", StandardBasicTypes.FLOAT);
         query.addScalar("price", StandardBasicTypes.FLOAT);
         query.addScalar("timeshare_image", StandardBasicTypes.STRING);
         query.addScalar("is_check", StandardBasicTypes.BOOLEAN);
