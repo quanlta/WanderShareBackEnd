@@ -6,6 +6,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -22,13 +24,18 @@ public class Timeshare {
     private Long category_id;
     private String name;
     private String description;
-    private long amount;
     private float price;
     private String timeshare_image;
     private Date startDate;
     private Date endDate;
     private Boolean is_check ;
     private Boolean status ;
+
+    @OneToMany(mappedBy = "senderTimeshare")
+    private Set<Exchange> sentExchanges = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiverTimeshare")
+    private Set<Exchange> receivedExchanges = new HashSet<>();
 
     public Timeshare(String userid, Long category_id, String name, String description, float price, String timeshare_image, Date startDate, Date endDate, Boolean is_check, Boolean status) {
         this.userid = userid;

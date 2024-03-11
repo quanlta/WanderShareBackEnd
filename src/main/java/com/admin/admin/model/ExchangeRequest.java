@@ -5,15 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequest {
-    private String user_id;
-    private String email;
-    private String phone;
-    private List<DataOrderRequest> dataOrderRequests;
+public class ExchangeRequest {
+
+    private Users senderUser;
+    private Users receiverUser;
+    private Timeshare senderTimeshare;
+    private Timeshare receiverTimeshare;
+
+
 }

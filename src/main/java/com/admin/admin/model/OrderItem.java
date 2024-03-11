@@ -22,9 +22,10 @@ public class OrderItem {
     private int quantity;
     private float price;
 
-    public OrderItem(String order_detail_id, Long timeshare_id, int value, float price, String orderType) {
+    public OrderItem(String order_detail_id, Long timeshare_id,int quantity, float price) {
         this.orderdetailid = order_detail_id;
         this.timeshare_id = timeshare_id;
+        this.quantity = quantity;
         this.price = price;
     }
 }

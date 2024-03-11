@@ -43,14 +43,13 @@ public class OrderServiceImpl implements OrderService {
                 orderInfor.setName(users1.getUsername());
             });
             String idOrder = RandomStringUtils.random(5, true, true);
-            String orderType = orderRequest.getOrderType();
             float[] total = {0};
             List<OrderDetail> orderDetails = new ArrayList<>(); // Danh sách đơn hàng tách riêng
             List<OrderMailTimeshareRespone> timeshareList = new ArrayList<>(); // Danh sách timeshare trong đơn hàng
             for (DataOrderRequest i : orderRequest.getDataOrderRequests()) {
                 Optional<Timeshare> priceTimeshare = timeshareRepository.findById(i.getId());
                 priceTimeshare.stream().forEach(timeshare -> {
-                    float price = timeshare.getPrice() * i.getValue();
+                    float price = timeshare.getPrice();
                     total[0] += price;
                     OrderDetail orderDetail = new OrderDetail(idOrder,
                             id,
@@ -63,13 +62,11 @@ public class OrderServiceImpl implements OrderService {
                     mailTimeshareRespone.setName(timeshare.getName());
                     mailTimeshareRespone.setQuality(i.getValue());
                     mailTimeshareRespone.setPrice(i.getValue() * timeshare.getPrice());
-                    mailTimeshareRespone.setOrderType(orderType);
                     timeshareList.add(mailTimeshareRespone);
                     orderItemRepository.save(new OrderItem(orderDetail.getId(),
                             i.getId(),
                             i.getValue(),
-                            timeshare.getPrice(),
-                            orderType
+                            timeshare.getPrice()
                     ));
                     timeshare.setStatus(false);
                     timeshareRepository.save(timeshare);
@@ -85,16 +82,6 @@ public class OrderServiceImpl implements OrderService {
         } catch (Exception e) {
             return ResponseEntity.ok(e.getMessage());
         }
-    }
-
-    @Override
-    public ResponseEntity<?> getOrderByDate(LocalDateTime startDate, LocalDateTime endDate) {
-        try {
-            return ResponseEntity.ok(orderDetailRepository.findByOrderdateBetween(startDate, endDate));
-        } catch (Exception e) {
-            return ResponseEntity.ok(e.getMessage());
-        }
-
     }
 
     @Override
@@ -119,6 +106,17 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
     }
+
+    @Override
+    public ResponseEntity<?> getOrderByDate(LocalDateTime startDate, LocalDateTime endDate) {
+        try {
+            return ResponseEntity.ok(orderDetailRepository.findByOrderdateBetween(startDate, endDate));
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getMessage());
+        }
+
+    }
+
 
     @Override
     public ResponseEntity<?> getOrderByUserID(String id) {

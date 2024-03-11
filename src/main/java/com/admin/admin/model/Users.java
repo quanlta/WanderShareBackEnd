@@ -34,6 +34,11 @@ public class Users implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+    @OneToMany(mappedBy = "senderUser")
+    private Set<Exchange> sentExchanges = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiverUser")
+    private Set<Exchange> receivedExchanges = new HashSet<>();
 
     public Users(String phone, String username, String email, String password, Set<Role> roles){
         this.user_id = email;

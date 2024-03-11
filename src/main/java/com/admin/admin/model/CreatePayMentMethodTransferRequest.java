@@ -10,5 +10,5 @@ public class CreatePayMentMethodTransferRequest {
     public String vnp_OrderInfo ;
     public String vnp_OrderType = "Thanh toan hoa don";
     public String vnp_TxnRef;
-//    private List<DataOrderRequest> dataOrderRequests;
+    private List<DataOrderRequest> dataOrderRequests;
 }

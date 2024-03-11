@@ -9,5 +9,6 @@ public interface TimeshareRepository extends JpaRepository<Timeshare,Long> {
     List<Timeshare> findTop5ByNameContainingIgnoreCase(String name);
     List<Timeshare> findByOrderByPriceAsc();
     List<Timeshare> findByOrderByPriceDesc();
+    List<Timeshare> findByStatus(Boolean status);
 
 }

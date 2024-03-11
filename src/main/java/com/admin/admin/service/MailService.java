@@ -6,6 +6,7 @@ import com.admin.admin.model.Users;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,19 @@ public class MailService {
         helper.setSubject("Information Checkout Order");
         helper.setText(emailContent, true);
         mailSender.send(message);
+    }
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    public void sendExchangeNotification(Users user, String exchangeId) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(user.getEmail());
+        message.setSubject("Exchange Notification");
+        message.setText("Dear " + user.getUsername() + ",\n\n" +
+                "An exchange with ID " + exchangeId + " has been created.\n" +
+                "Thank you for using our service!\n\n" +
+                "Best regards,\nWanderShare");
+
+        javaMailSender.send(message);
     }
 }

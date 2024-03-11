@@ -43,11 +43,31 @@ public class TimeshareCusRepo {
         NativeQuery<Timeshare> query = ((Session)entityManager.getDelegate()).createNativeQuery(sql.toString());
         query.addScalar("id", StandardBasicTypes.LONG);
         query.addScalar("category_id", StandardBasicTypes.LONG);
+        query.addScalar("userid", StandardBasicTypes.STRING);
         query.addScalar("name", StandardBasicTypes.STRING);
         query.addScalar("description", StandardBasicTypes.STRING);
-        query.addScalar("amount", StandardBasicTypes.FLOAT);
         query.addScalar("price", StandardBasicTypes.FLOAT);
         query.addScalar("timeshare_image", StandardBasicTypes.STRING);
+        query.addScalar("startDate", StandardBasicTypes.DATE);
+        query.addScalar("endDate", StandardBasicTypes.DATE);
+        query.addScalar("is_check", StandardBasicTypes.BOOLEAN);
+        query.addScalar("status", StandardBasicTypes.INTEGER);
+        query.setResultTransformer(Transformers.aliasToBean(Timeshare.class));
+        return query.list();
+    }
+    public List<Timeshare> findByEmail(){
+        StringBuilder sql = new StringBuilder()
+                .append("select * from timeshare where users.user_id = '" +findByEmail()+"'");
+        NativeQuery<Timeshare> query = ((Session)entityManager.getDelegate()).createNativeQuery(sql.toString());
+        query.addScalar("id", StandardBasicTypes.LONG);
+        query.addScalar("category_id", StandardBasicTypes.LONG);
+        query.addScalar("userid", StandardBasicTypes.STRING);
+        query.addScalar("name", StandardBasicTypes.STRING);
+        query.addScalar("description", StandardBasicTypes.STRING);
+        query.addScalar("price", StandardBasicTypes.FLOAT);
+        query.addScalar("timeshare_image", StandardBasicTypes.STRING);
+        query.addScalar("startDate", StandardBasicTypes.DATE);
+        query.addScalar("endDate", StandardBasicTypes.DATE);
         query.addScalar("is_check", StandardBasicTypes.BOOLEAN);
         query.addScalar("status", StandardBasicTypes.INTEGER);
         query.setResultTransformer(Transformers.aliasToBean(Timeshare.class));

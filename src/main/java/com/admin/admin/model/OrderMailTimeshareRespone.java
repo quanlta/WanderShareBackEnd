@@ -13,5 +13,4 @@ public class OrderMailTimeshareRespone {
     private String name;
     private int quality;
     private float price;
-    private String orderType;
 }
